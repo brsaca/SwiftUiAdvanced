@@ -11,6 +11,8 @@ struct ContentView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var editingEmail: Bool = false
+    @State private var editingPassword: Bool = false
 
     var body: some View {
         ZStack {
@@ -28,9 +30,12 @@ struct ContentView: View {
                         .foregroundColor(.white.opacity(0.7))
                     
                     HStack(spacing: 12) {
-                        Image(systemName: "envelope.open.fill").foregroundColor(.white)
-                            .padding(.leading, 12)
-                        TextField("Email", text: $email).colorScheme(.dark)
+                        TextFieldIcon(iconName:"envelope.open.fill", currentlyEditing: $editingEmail)
+                        TextField("Email", text: $email){ isEditing in
+                            editingEmail = isEditing
+                            editingPassword = false
+                        }
+                            .colorScheme(.dark)
                             .foregroundColor(.white.opacity(0.7))
                             .autocapitalization(.none)
                             .textContentType(.emailAddress)
@@ -48,9 +53,9 @@ struct ContentView: View {
                     )
                     
                     HStack(spacing: 12) {
-                        Image(systemName: "key.fill").foregroundColor(.white)
-                            .padding(.leading, 12)
-                        SecureField("Password", text: $password).colorScheme(.dark)
+                        TextFieldIcon(iconName:"key.fill", currentlyEditing: $editingPassword)
+                        SecureField("Password", text: $password)
+                            .colorScheme(.dark)
                             .foregroundColor(.white.opacity(0.7))
                             .autocapitalization(.none)
                             .textContentType(.password)
@@ -66,6 +71,10 @@ struct ContentView: View {
                             .cornerRadius(16.0)
                             .opacity(0.8)
                     )
+                    .onTapGesture {
+                        editingEmail = false
+                        editingPassword = true
+                    }
                     
                     GradientButton()
                     

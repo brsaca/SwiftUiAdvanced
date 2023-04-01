@@ -17,6 +17,7 @@
 		2362A1D629D8B78C00DEEB3A /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1D529D8B78C00DEEB3A /* VisualEffectBlur.swift */; };
 		2362A1D929D8C39600DEEB3A /* GradientText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1D829D8C39600DEEB3A /* GradientText.swift */; };
 		2362A1DC29D8C3EA00DEEB3A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */; };
+		2362A1DE29D8C54400DEEB3A /* TextFieldIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		2362A1D529D8B78C00DEEB3A /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		2362A1D829D8C39600DEEB3A /* GradientText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientText.swift; sourceTree = "<group>"; };
 		2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				2362A1D829D8C39600DEEB3A /* GradientText.swift */,
 				2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */,
+				2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				2362A1D929D8C39600DEEB3A /* GradientText.swift in Sources */,
 				2362A1C729D8B11300DEEB3A /* SwiftUiAdvanced.xcdatamodeld in Sources */,
 				2362A1D429D8B77600DEEB3A /* ImagePicker.swift in Sources */,
+				2362A1DE29D8C54400DEEB3A /* TextFieldIcon.swift in Sources */,
 				2362A1D629D8B78C00DEEB3A /* VisualEffectBlur.swift in Sources */,
 				2362A1BD29D8B10F00DEEB3A /* ContentView.swift in Sources */,
 				2362A1BB29D8B10F00DEEB3A /* SwiftUiAdvancedApp.swift in Sources */,
