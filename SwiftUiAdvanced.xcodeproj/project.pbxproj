@@ -24,6 +24,8 @@
 		2362A1C329D8B11300DEEB3A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		2362A1C629D8B11300DEEB3A /* SwiftUiAdvanced.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftUiAdvanced.xcdatamodel; sourceTree = "<group>"; };
 		2362A1C829D8B11300DEEB3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2362A1CE29D8B1FD00DEEB3A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2362A1CF29D8B2B000DEEB3A /* .gitignore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = .gitignore.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,8 @@
 				2362A1C829D8B11300DEEB3A /* Info.plist */,
 				2362A1C529D8B11300DEEB3A /* SwiftUiAdvanced.xcdatamodeld */,
 				2362A1C029D8B11300DEEB3A /* Preview Content */,
+				2362A1CE29D8B1FD00DEEB3A /* README.md */,
+				2362A1CF29D8B2B000DEEB3A /* .gitignore.md */,
 			);
 			path = SwiftUiAdvanced;
 			sourceTree = "<group>";
