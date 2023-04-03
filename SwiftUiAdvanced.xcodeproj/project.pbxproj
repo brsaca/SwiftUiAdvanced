@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23575F6729DB3445009034A1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 23575F6629DB3445009034A1 /* FirebaseAuth */; };
+		23575F6929DB34AA009034A1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23575F6829DB34A8009034A1 /* GoogleService-Info.plist */; };
 		2362A1BB29D8B10F00DEEB3A /* SwiftUiAdvancedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1BA29D8B10F00DEEB3A /* SwiftUiAdvancedApp.swift */; };
 		2362A1BD29D8B10F00DEEB3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1BC29D8B10F00DEEB3A /* ContentView.swift */; };
 		2362A1BF29D8B11300DEEB3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2362A1BE29D8B11300DEEB3A /* Assets.xcassets */; };
@@ -21,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23575F6829DB34A8009034A1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2362A1B729D8B10F00DEEB3A /* SwiftUiAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUiAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2362A1BA29D8B10F00DEEB3A /* SwiftUiAdvancedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUiAdvancedApp.swift; sourceTree = "<group>"; };
 		2362A1BC29D8B10F00DEEB3A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23575F6729DB3445009034A1 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +79,7 @@
 				2362A1BE29D8B11300DEEB3A /* Assets.xcassets */,
 				2362A1C329D8B11300DEEB3A /* Persistence.swift */,
 				2362A1C829D8B11300DEEB3A /* Info.plist */,
+				23575F6829DB34A8009034A1 /* GoogleService-Info.plist */,
 				2362A1C529D8B11300DEEB3A /* SwiftUiAdvanced.xcdatamodeld */,
 				2362A1C029D8B11300DEEB3A /* Preview Content */,
 				2362A1CE29D8B1FD00DEEB3A /* README.md */,
@@ -126,6 +131,9 @@
 			dependencies = (
 			);
 			name = SwiftUiAdvanced;
+			packageProductDependencies = (
+				23575F6629DB3445009034A1 /* FirebaseAuth */,
+			);
 			productName = SwiftUiAdvanced;
 			productReference = 2362A1B729D8B10F00DEEB3A /* SwiftUiAdvanced.app */;
 			productType = "com.apple.product-type.application";
@@ -154,6 +162,9 @@
 				Base,
 			);
 			mainGroup = 2362A1AE29D8B10F00DEEB3A;
+			packageReferences = (
+				23575F6529DB3445009034A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 2362A1B829D8B10F00DEEB3A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -170,6 +181,7 @@
 			files = (
 				2362A1C229D8B11300DEEB3A /* Preview Assets.xcassets in Resources */,
 				2362A1BF29D8B11300DEEB3A /* Assets.xcassets in Resources */,
+				23575F6929DB34AA009034A1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +401,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23575F6529DB3445009034A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23575F6629DB3445009034A1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23575F6529DB3445009034A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2362A1C529D8B11300DEEB3A /* SwiftUiAdvanced.xcdatamodeld */ = {
