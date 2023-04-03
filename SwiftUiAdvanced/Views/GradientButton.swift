@@ -17,11 +17,11 @@ struct GradientButton: View {
         Color.init(red: 109/255, green: 1, blue: 185/255),
         Color.init(red: 39/255, green: 232/255, blue: 1)
     ]
+    var buttonTitle: String
+    var buttonAction: () -> Void
     
     var body: some View {
-        Button(action: {
-            print("Sign up")
-        }, label: {
+        Button(action: buttonAction, label: {
             GeometryReader() { geometry in
                 ZStack {
                     AngularGradient(colors: gradient1, center: .center, angle: .degrees(angle))
@@ -38,7 +38,7 @@ struct GradientButton: View {
                                 self.angle += 350
                             }
                         }
-                    GradientText(text: "Sign Up")
+                    GradientText(text: buttonTitle)
                         .font(.headline)
                         .frame(maxWidth: geometry.size.width - 16)
                         .frame(height: 50)
