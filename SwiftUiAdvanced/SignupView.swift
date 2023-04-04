@@ -24,6 +24,7 @@ struct SignupView: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var rotationAngle = 0.0
+    @State private var signInWithAppleObject = SignInWithAppleObject()
     
     private let generator = UISelectionFeedbackGenerator()
     
@@ -43,7 +44,7 @@ struct SignupView: View {
                         .foregroundColor(.white)
                     Text("Access to 120+ hours of courses, tutorials and livestreams")
                         .font(.subheadline)
-                        .foregroundColor(Color.white.opacity(0.7))
+                        .foregroundColor(.white.opacity(0.7))
                     
                     HStack(spacing: 12) {
                         TextFieldIcon(iconName: "envelope.open.fill",  currentlyEditing: $editingEmailTextfield)
@@ -64,14 +65,14 @@ struct SignupView: View {
                             }
                         }
                         .colorScheme(.dark)
-                        .foregroundColor(Color.white.opacity(0.7))
+                        .foregroundColor(.white.opacity(0.7))
                         .autocapitalization(.none)
                         .textContentType(.emailAddress)
                     }
                     .frame(height: 52)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16, style: .circular)
-                            .stroke(Color.white, lineWidth: 1)
+                            .stroke(.white, lineWidth: 1)
                             .blendMode(.overlay)
                     )
                     .background(
@@ -84,7 +85,7 @@ struct SignupView: View {
                         TextFieldIcon(iconName: "key.fill", currentlyEditing: $editingPasswordTextfield)
                             .scaleEffect(passwordIconBounce ? 1.2 : 1.0)
                         SecureField("Password", text: $password)
-                            .foregroundColor(Color.white.opacity(0.7))
+                            .foregroundColor(.white.opacity(0.7))
                             .textContentType(.password)
                             .colorScheme(.dark)
                             .autocapitalization(.none)
@@ -92,7 +93,7 @@ struct SignupView: View {
                     .frame(height: 52)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16, style: .circular)
-                            .stroke(Color.white, lineWidth: 1)
+                            .stroke(.white, lineWidth: 1)
                             .blendMode(.overlay)
                     )
                     .background(
@@ -123,11 +124,11 @@ struct SignupView: View {
                     if signupToggle {
                         Text("By clicking on Sign up, you agree to our Terms of service and Privacy policy.")
                             .font(.footnote)
-                            .foregroundColor(Color.white.opacity(0.7))
+                            .foregroundColor(.white.opacity(0.7))
                         
                         Rectangle()
                             .frame(height: 1)
-                            .foregroundColor(Color.white.opacity(0.1))
+                            .foregroundColor(.white.opacity(0.1))
                     }
                     
                     VStack(alignment: .leading, spacing: 16) {
@@ -149,7 +150,7 @@ struct SignupView: View {
                             HStack(spacing: 4) {
                                 Text(signupToggle ? "Already have an account?" : "Don't have an account?")
                                     .font(.footnote)
-                                    .foregroundColor(Color.white.opacity(0.7))
+                                    .foregroundColor(.white.opacity(0.7))
                                 GradientText(text: signupToggle ? "Sign in" : "Sign up")
                                     .font(Font.footnote.bold())
                             }
@@ -163,7 +164,7 @@ struct SignupView: View {
                                 HStack(spacing: 4) {
                                     Text("Forgot password?")
                                         .font(.footnote)
-                                        .foregroundColor(Color.white.opacity(0.7))
+                                        .foregroundColor(.white.opacity(0.7))
                                     GradientText(text: "Reset Password")
                                         .font(Font.footnote.bold())
                                 }
@@ -171,10 +172,14 @@ struct SignupView: View {
                             
                             Rectangle()
                                 .frame(height: 1)
-                                .foregroundColor(Color.white.opacity(0.1))
+                                .foregroundColor(.white.opacity(0.1))
                             
                             Button(action: {
+                                signInWithAppleObject.signInWithApple()
                             }, label: {
+                                SignInWithAppleButton()
+                                    .frame(height: 50)
+                                    .cornerRadius(16)
                             })
                         }
                     }
@@ -187,7 +192,7 @@ struct SignupView: View {
             })
             .background(
                 RoundedRectangle(cornerRadius: 30)
-                    .stroke(Color.white.opacity(0.2))
+                    .stroke(.white.opacity(0.2))
                     .background(Color("secondaryBackground").opacity(0.5))
                     .background(VisualEffectBlur(blurStyle: .systemThinMaterialDark))
                     .shadow(color: Color("shadowColor").opacity(0.5), radius: 60, x: 0, y: 30)
@@ -204,10 +209,10 @@ struct SignupView: View {
             .rotation3DEffect(Angle(degrees: rotationAngle), axis: (x: CGFloat(0), y: CGFloat(1), z: CGFloat(0)))
             
         }
-        .fullScreenCover(isPresented: $showProfileView) {
+       /* .fullScreenCover(isPresented: $showProfileView) {
             ProfileView()
-               // .environment(\.managedObjectContext, self.viewContext)
-        }
+            //.environment(\.managedObjectContext, self.viewContext)
+        }*/
     }
     
     func sendPasswordResetEmail() {
