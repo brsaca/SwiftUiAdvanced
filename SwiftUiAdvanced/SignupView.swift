@@ -209,10 +209,10 @@ struct SignupView: View {
             .rotation3DEffect(Angle(degrees: rotationAngle), axis: (x: CGFloat(0), y: CGFloat(1), z: CGFloat(0)))
             
         }
-       /* .fullScreenCover(isPresented: $showProfileView) {
+        .fullScreenCover(isPresented: $showProfileView) {
             ProfileView()
             //.environment(\.managedObjectContext, self.viewContext)
-        }*/
+        }
     }
     
     func sendPasswordResetEmail() {

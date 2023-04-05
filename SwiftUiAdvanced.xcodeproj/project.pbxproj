@@ -24,6 +24,7 @@
 		2362A1DC29D8C3EA00DEEB3A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */; };
 		2362A1DE29D8C54400DEEB3A /* TextFieldIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */; };
 		2395125A29DE283A00B8682B /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 2395125929DE283A00B8682B /* RevenueCat */; };
+		2395125D29DE2EB700B8682B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2395125C29DE2EB700B8682B /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		2362A1D829D8C39600DEEB3A /* GradientText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientText.swift; sourceTree = "<group>"; };
 		2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldIcon.swift; sourceTree = "<group>"; };
+		2395125C29DE2EB700B8682B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2395125D29DE2EB700B8682B /* StoreKit.framework in Frameworks */,
 				2395125A29DE283A00B8682B /* RevenueCat in Frameworks */,
 				23575F6729DB3445009034A1 /* FirebaseAuth in Frameworks */,
 			);
@@ -67,6 +70,7 @@
 			children = (
 				2362A1B929D8B10F00DEEB3A /* SwiftUiAdvanced */,
 				2362A1B829D8B10F00DEEB3A /* Products */,
+				2395125B29DE2EB700B8682B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +130,14 @@
 				2353C4FD29DCACD7000FB956 /* SignInWithAppleButton.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2395125B29DE2EB700B8682B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2395125C29DE2EB700B8682B /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
