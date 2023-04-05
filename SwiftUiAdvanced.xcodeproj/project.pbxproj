@@ -23,6 +23,7 @@
 		2362A1D929D8C39600DEEB3A /* GradientText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1D829D8C39600DEEB3A /* GradientText.swift */; };
 		2362A1DC29D8C3EA00DEEB3A /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */; };
 		2362A1DE29D8C54400DEEB3A /* TextFieldIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */; };
+		2395125A29DE283A00B8682B /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 2395125929DE283A00B8682B /* RevenueCat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2395125A29DE283A00B8682B /* RevenueCat in Frameworks */,
 				23575F6729DB3445009034A1 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +146,7 @@
 			name = SwiftUiAdvanced;
 			packageProductDependencies = (
 				23575F6629DB3445009034A1 /* FirebaseAuth */,
+				2395125929DE283A00B8682B /* RevenueCat */,
 			);
 			productName = SwiftUiAdvanced;
 			productReference = 2362A1B729D8B10F00DEEB3A /* SwiftUiAdvanced.app */;
@@ -175,6 +178,7 @@
 			mainGroup = 2362A1AE29D8B10F00DEEB3A;
 			packageReferences = (
 				23575F6529DB3445009034A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2395125829DE283A00B8682B /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 2362A1B829D8B10F00DEEB3A /* Products */;
 			projectDirPath = "";
@@ -431,6 +435,14 @@
 				version = 9.6.0;
 			};
 		};
+		2395125829DE283A00B8682B /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -438,6 +450,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23575F6529DB3445009034A1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		2395125929DE283A00B8682B /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2395125829DE283A00B8682B /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
 		};
 /* End XCSwiftPackageProductDependency section */
 
