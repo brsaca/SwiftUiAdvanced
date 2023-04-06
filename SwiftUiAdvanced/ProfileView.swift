@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import RevenueCat
 
 struct ProfileView: View {
+    @State private var showLoader: Bool = false
+    @State private var iapButtonTitle = "Purchase Lifetime Pro Plan"
+   
+    
     var body: some View {
         ZStack {
             Image("background-2")
@@ -75,15 +80,54 @@ struct ProfileView: View {
                 }
                 .padding(16)
                 
-                GradientButton(buttonTitle: "Purchase Lifetime Pro Plan", buttonAction: {})
-                    .padding(.horizontal, 16)
+                GradientButton(buttonTitle: iapButtonTitle, buttonAction: {
+                    showLoader = true
+                    Purchases.shared.getOfferings { offerings, error in
+                        if let packages = offerings?.current?.availablePackages {
+                            Purchases.shared.purchase(package: packages.first!) { transaction, purchaserInfo, error, userCancelled in
+                                print("TRANSACTION: \(transaction)")
+                                print("PURCHASER INFO: \(purchaserInfo)")
+                                print("ERROR: \(error)")
+                                print("USERCANCELLED: \(userCancelled)")
+                                
+                                showLoader = false
+                                
+                                if purchaserInfo?.entitlements["pro"]?.isActive == true {
+                                    iapButtonTitle = "Purchase Successful"
+                                } else{
+                                    iapButtonTitle = "Purchase Failed"
+                                }
+                            }
+                        } else{
+                            showLoader = false
+                        }
+                    }
+                })
+                .padding(.horizontal, 16)
+                
+                Spacer().frame(height: 30)
                 
                 Button(action:{
-                    
+                    showLoader = true
+                    Purchases.shared.restorePurchases { purchaserInfo, error in
+                        if let info = purchaserInfo {
+                            showLoader = false
+                            if info.allPurchasedProductIdentifiers.contains("lifetim_pro_plan") {
+                                iapButtonTitle = "Restore Successful"
+                            } else {
+                                iapButtonTitle = "No Purchases Found"
+                            }
+                        } else {
+                            showLoader = false
+                            iapButtonTitle = "Restore Failed"
+                        }
+                    }
                 }, label: {
                     GradientText(text:"Restore Purchases").font(.footnote.bold())
                 })
                 .padding(.bottom)
+                
+                Spacer().frame(height: 20)
             }
             .background(
                 RoundedRectangle(cornerRadius: 30)
@@ -117,6 +161,11 @@ struct ProfileView: View {
                 })
             }
             .padding(.bottom, 64)
+            
+            if showLoader {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            }
         }
         .colorScheme(.dark)
     }
