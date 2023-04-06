@@ -7,11 +7,12 @@
 
 import SwiftUI
 import RevenueCat
+import FirebaseAuth
 
 struct ProfileView: View {
     @State private var showLoader: Bool = false
     @State private var iapButtonTitle = "Purchase Lifetime Pro Plan"
-   
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack {
@@ -144,7 +145,7 @@ struct ProfileView: View {
             VStack {
                 Spacer()
                 Button(action: {
-                    
+                    signout()
                 }, label: {
                     Image(systemName: "arrow.turn.up.forward.iphone.fill")
                         .foregroundColor(.white)
@@ -170,6 +171,15 @@ struct ProfileView: View {
             }
         }
         .colorScheme(.dark)
+    }
+    
+    func signout() {
+        do {
+            try Auth.auth().signOut()
+            presentationMode.wrappedValue.dismiss()
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 
