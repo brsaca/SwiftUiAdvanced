@@ -25,6 +25,7 @@
 		2362A1DE29D8C54400DEEB3A /* TextFieldIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */; };
 		2395125A29DE283A00B8682B /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 2395125929DE283A00B8682B /* RevenueCat */; };
 		2395125D29DE2EB700B8682B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2395125C29DE2EB700B8682B /* StoreKit.framework */; };
+		23FDC42929DF3417001B6E28 /* GradientProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDC42829DF3417001B6E28 /* GradientProfilePictureView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldIcon.swift; sourceTree = "<group>"; };
 		2395125C29DE2EB700B8682B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		23FDC42829DF3417001B6E28 /* GradientProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProfilePictureView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				2362A1DB29D8C3EA00DEEB3A /* GradientButton.swift */,
 				2362A1DD29D8C54400DEEB3A /* TextFieldIcon.swift */,
 				2353C4FD29DCACD7000FB956 /* SignInWithAppleButton.swift */,
+				23FDC42829DF3417001B6E28 /* GradientProfilePictureView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				2353C50129DCADDE000FB956 /* SignInWithAppleObject.swift in Sources */,
 				2362A1D929D8C39600DEEB3A /* GradientText.swift in Sources */,
 				2362A1C729D8B11300DEEB3A /* SwiftUiAdvanced.xcdatamodeld in Sources */,
+				23FDC42929DF3417001B6E28 /* GradientProfilePictureView.swift in Sources */,
 				2362A1D429D8B77600DEEB3A /* ImagePicker.swift in Sources */,
 				2362A1DE29D8C54400DEEB3A /* TextFieldIcon.swift in Sources */,
 				2362A1D629D8B78C00DEEB3A /* VisualEffectBlur.swift in Sources */,

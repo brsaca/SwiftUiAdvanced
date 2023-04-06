@@ -23,7 +23,7 @@ struct ProfileView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(spacing: 16) {
-                        ZStack {
+                        /*ZStack {
                             Circle()
                                 .foregroundColor(Color("pink-gradient-1"))
                                 .frame(width: 66, height: 66, alignment: .center)
@@ -31,7 +31,9 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                                 .font(.system(size: 24, weight: .medium, design: .rounded))
                         }
-                        .frame(width: 66, height: 66, alignment: .center)
+                        .frame(width: 66, height: 66, alignment: .center)*/
+                        
+                        GradientProfilePictureView(profilePicture: UIImage(named: "Profile")!).frame(width: 66, height: 66)
                         
                         VStack(alignment: .leading) {
                             Text("Brenda Saavedra")
