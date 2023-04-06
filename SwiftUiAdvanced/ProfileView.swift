@@ -14,6 +14,10 @@ struct ProfileView: View {
     @State private var iapButtonTitle = "Purchase Lifetime Pro Plan"
     @Environment(\.presentationMode) var presentationMode
     
+    @State private var showAlertView = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
     var body: some View {
         ZStack {
             Image("background-2")
@@ -96,9 +100,14 @@ struct ProfileView: View {
                                 showLoader = false
                                 
                                 if purchaserInfo?.entitlements["pro"]?.isActive == true {
-                                    iapButtonTitle = "Purchase Successful"
+                                    iapButtonTitle = "You are a Pro Member"
+                                    alertTitle = "Purchase Successful"
+                                    alertMessage = "You are now a pro member"
+                                    showAlertView.toggle()
                                 } else{
-                                    iapButtonTitle = "Purchase Failed"
+                                    alertTitle = "Purchase Failed"
+                                    alertMessage = "You are not a pro member"
+                                    showAlertView.toggle()
                                 }
                             }
                         } else{
@@ -116,13 +125,20 @@ struct ProfileView: View {
                         if let info = purchaserInfo {
                             showLoader = false
                             if info.allPurchasedProductIdentifiers.contains("lifetim_pro_plan") {
-                                iapButtonTitle = "Restore Successful"
+                                iapButtonTitle = "You are a Pro Member"
+                                alertTitle = "Restore Success"
+                                alertMessage = "Your purchase has been restored and you are a pro member"
+                                showAlertView.toggle()
                             } else {
-                                iapButtonTitle = "No Purchases Found"
+                                alertTitle = "No Purchases Found"
+                                alertMessage = "Your purchase has not been restored and you are not a pro member"
+                                showAlertView.toggle()
                             }
                         } else {
                             showLoader = false
-                            iapButtonTitle = "Restore Failed"
+                            alertTitle = "Restore Failed"
+                            alertMessage = "Your purchase has not been restored and you are not a pro member"
+                            showAlertView.toggle()
                         }
                     }
                 }, label: {
@@ -171,6 +187,9 @@ struct ProfileView: View {
             }
         }
         .colorScheme(.dark)
+        .alert(isPresented: $showAlertView) {
+            Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .cancel())
+        }
     }
     
     func signout() {
@@ -178,7 +197,9 @@ struct ProfileView: View {
             try Auth.auth().signOut()
             presentationMode.wrappedValue.dismiss()
         } catch let error {
-            print(error.localizedDescription)
+            alertTitle = "Uh-Oh!"
+            alertMessage = error.localizedDescription
+            showAlertView.toggle()
         }
     }
 }
