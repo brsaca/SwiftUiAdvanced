@@ -8,6 +8,7 @@
 import SwiftUI
 import RevenueCat
 import FirebaseAuth
+import CoreData
 
 struct ProfileView: View {
     @State private var showLoader: Bool = false
@@ -19,6 +20,10 @@ struct ProfileView: View {
     @State private var alertMessage = ""
     @State private var showSettingsView: Bool = false
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.userSince, ascending: true)], predicate: NSPredicate(format: "userID == %@", Auth.auth().currentUser!.uid), animation: .default) private var savedAccounts: FetchedResults<Account>
+    @State private var currentAccount: Account?
+    
     var body: some View {
         ZStack {
             Image("background-2")
@@ -29,20 +34,23 @@ struct ProfileView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(spacing: 16) {
-                        /*ZStack {
-                            Circle()
-                                .foregroundColor(Color("pink-gradient-1"))
-                                .frame(width: 66, height: 66, alignment: .center)
-                            Image(systemName: "person.fill")
-                                .foregroundColor(.white)
-                                .font(.system(size: 24, weight: .medium, design: .rounded))
+                        if currentAccount?.profileImage != nil {
+                            GradientProfilePictureView(profilePicture: UIImage(data: currentAccount!.profileImage!)!)
+                                .frame(width: 66, height: 66)
+                        } else {
+                            ZStack {
+                                Circle()
+                                    .foregroundColor(Color("pink-gradient-1"))
+                                    .frame(width: 66, height: 66, alignment: .center)
+                                Image(systemName: "person.fill")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 24, weight: .medium, design: .rounded))
+                            }
+                            .frame(width: 66, height: 66, alignment: .center)
                         }
-                        .frame(width: 66, height: 66, alignment: .center)*/
-                        
-                        GradientProfilePictureView(profilePicture: UIImage(named: "Profile")!).frame(width: 66, height: 66)
                         
                         VStack(alignment: .leading) {
-                            Text("Brenda Saavedra")
+                            Text(currentAccount?.name ?? "No name")
                                 .foregroundColor(.white)
                                 .font(.title2)
                                 .bold()
@@ -64,58 +72,71 @@ struct ProfileView: View {
                         .frame(height: 1)
                         .foregroundColor(.white.opacity(0.1))
                     
-                    Text("Student at Design+Code")
+                    Text(currentAccount?.bio ?? "No Bio")
                         .foregroundColor(.white)
                         .font(.title2.bold())
                     
-                    Label("Awarded 10 certificates since July 2020", systemImage: "calendar")
-                        .foregroundColor(.white.opacity(0.7))
-                        .font(.footnote)
+                    if currentAccount?.numerOfCertificates != 0 {
+                        Label("Awarded \(currentAccount?.numerOfCertificates ?? 0) certificates since \(currentAccount?.userSince ?? Date())", systemImage: "calendar")
+                            .foregroundColor(.white.opacity(0.7))
+                            .font(.footnote)
+                    }
                     
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(.white.opacity(0.1))
                     HStack(spacing: 16) {
-                        Image("Twitter")
-                            .resizable()
-                            .foregroundColor(.white.opacity(0.7))
-                            .frame(width: 24, height: 24, alignment: .center)
-                        Image(systemName: "link")
-                            .foregroundColor(.white.opacity(0.7))
-                            .font(.system(size: 17, weight: .semibold, design: .rounded))
-                        Text("brenda.saavedra.com")
-                            .foregroundColor(.white.opacity(0.7))
-                            .font(.footnote)
+                        if currentAccount?.twitterHandle != nil {
+                            Image("Twitter")
+                                .resizable()
+                                .foregroundColor(.white.opacity(0.7))
+                                .frame(width: 24, height: 24, alignment: .center)
+                        }
+                        
+                        if currentAccount?.website != nil {
+                            Image(systemName: "link")
+                                .foregroundColor(.white.opacity(0.7))
+                                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                            Text(currentAccount?.website ?? "No website")
+                                .foregroundColor(.white.opacity(0.7))
+                                .font(.footnote)
+                        }
                     }
                 }
                 .padding(16)
                 
                 GradientButton(buttonTitle: iapButtonTitle, buttonAction: {
-                    showLoader = true
-                    Purchases.shared.getOfferings { offerings, error in
-                        if let packages = offerings?.current?.availablePackages {
-                            Purchases.shared.purchase(package: packages.first!) { transaction, purchaserInfo, error, userCancelled in
-                                print("TRANSACTION: \(transaction)")
-                                print("PURCHASER INFO: \(purchaserInfo)")
-                                print("ERROR: \(error)")
-                                print("USERCANCELLED: \(userCancelled)")
-                                
-                                showLoader = false
-                                
-                                if purchaserInfo?.entitlements["pro"]?.isActive == true {
-                                    iapButtonTitle = "You are a Pro Member"
-                                    alertTitle = "Purchase Successful"
-                                    alertMessage = "You are now a pro member"
-                                    showAlertView.toggle()
-                                } else{
-                                    alertTitle = "Purchase Failed"
-                                    alertMessage = "You are not a pro member"
-                                    showAlertView.toggle()
+                    if currentAccount?.proMember != true {
+                        showLoader = true
+                        Purchases.shared.getOfferings { offerings, error in
+                            if let packages = offerings?.current?.availablePackages {
+                                Purchases.shared.purchase(package: packages.first!) { transaction, purchaserInfo, error, userCancelled in
+                                    print("TRANSACTION: \(transaction)")
+                                    print("PURCHASER INFO: \(purchaserInfo)")
+                                    print("ERROR: \(error)")
+                                    print("USERCANCELLED: \(userCancelled)")
+                                    
+                                    showLoader = false
+                                    
+                                    if purchaserInfo?.entitlements["pro"]?.isActive == true {
+                                        iapButtonTitle = "You are a Pro Member"
+                                        alertTitle = "Purchase Successful"
+                                        alertMessage = "You are now a pro member"
+                                        showAlertView.toggle()
+                                    } else{
+                                        alertTitle = "Purchase Failed"
+                                        alertMessage = "You are not a pro member"
+                                        showAlertView.toggle()
+                                    }
                                 }
+                            } else{
+                                showLoader = false
                             }
-                        } else{
-                            showLoader = false
                         }
+                    } else {
+                        alertTitle = "No Purchase Necessary"
+                        alertMessage = "You are already a pro member"
+                        showAlertView.toggle()
                     }
                 })
                 .padding(.horizontal, 16)
@@ -196,6 +217,43 @@ struct ProfileView: View {
         .sheet(isPresented: $showSettingsView, content: {
             SettingsView()
         })
+        .onAppear() {
+            currentAccount = savedAccounts.first
+            
+            if currentAccount == nil {
+                let userDataToSave = Account(context: viewContext)
+                userDataToSave.name = Auth.auth().currentUser!.displayName
+                userDataToSave.bio = nil
+                userDataToSave.userID = Auth.auth().currentUser!.uid
+                userDataToSave.numerOfCertificates = 0
+                userDataToSave.proMember = false
+                userDataToSave.twitterHandle = nil
+                userDataToSave.website = nil
+                userDataToSave.profileImage = nil
+                userDataToSave.userSince = Date()
+                do {
+                    try viewContext.save()
+                } catch let error {
+                    alertTitle = "Could not create an account"
+                    alertMessage = error.localizedDescription
+                    showAlertView.toggle()
+                }
+            }
+            
+            if currentAccount?.proMember == false {
+                Purchases.shared.getOfferings { offerings, error in
+                    guard error == nil else {
+                        print(error!.localizedDescription)
+                        return
+                    }
+                    if let allOfferings = offerings, let lifetimePurchase = allOfferings.current?.lifetime {
+                        iapButtonTitle = "Purchase Lifetime Pro Plan - \(lifetimePurchase.localizedPriceString)"
+                    }
+                }
+            } else {
+                iapButtonTitle = "You are a Pro Member"
+            }
+        }
     }
     
     func signout() {

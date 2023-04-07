@@ -238,7 +238,7 @@ struct SignupView: View {
         }
         .fullScreenCover(isPresented: $showProfileView) {
             ProfileView()
-            //.environment(\.managedObjectContext, self.viewContext)
+            .environment(\.managedObjectContext, self.viewContext)
         }
     }
     
