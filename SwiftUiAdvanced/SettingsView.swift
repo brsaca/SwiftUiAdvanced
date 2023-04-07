@@ -95,6 +95,9 @@ struct SettingsView: View {
         }
         .background(Color("settingsBackground"))
         .edgesIgnoringSafeArea(.all)
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: self.$inputImage)
+        }
     }
 }
 
