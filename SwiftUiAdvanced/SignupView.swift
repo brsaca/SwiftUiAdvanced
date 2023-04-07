@@ -26,6 +26,9 @@ struct SignupView: View {
     @State private var rotationAngle = 0.0
     @State private var signInWithAppleObject = SignInWithAppleObject()
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.userSince, ascending: true)], animation: .default) private var savedAccounts: FetchedResults<Account>
+    
     private let generator = UISelectionFeedbackGenerator()
     
     var body: some View {
@@ -120,6 +123,37 @@ struct SignupView: View {
                         generator.selectionChanged()
                         signup()
                     })
+                    .onAppear() {
+                        Auth.auth().addStateDidChangeListener { (auth, user) in
+                            if let currentUser = user {
+                                if savedAccounts.count == 0 {
+                                    // Add data to Core Data
+                                    let userDataToSave = Account(context: viewContext)
+                                    userDataToSave.name = currentUser.displayName
+                                    userDataToSave.bio = nil
+                                    userDataToSave.userID = currentUser.uid
+                                    userDataToSave.numerOfCertificates = 0
+                                    userDataToSave.proMember = false
+                                    userDataToSave.twitterHandle = nil
+                                    userDataToSave.website = nil
+                                    userDataToSave.profileImage = nil
+                                    userDataToSave.userSince = Date()
+                                    do {
+                                        try viewContext.save()
+                                        DispatchQueue.main.async {
+                                            showProfileView.toggle()
+                                        }
+                                    } catch let error {
+                                        alertTitle = "Could not create an account"
+                                        alertMessage = error.localizedDescription
+                                        showAlertToggle.toggle()
+                                    }
+                                } else {
+                                    showProfileView.toggle()
+                                }
+                            }
+                        }
+                    }
                     
                     if signupToggle {
                         Text("By clicking on Sign up, you agree to our Terms of service and Privacy policy.")
@@ -199,13 +233,6 @@ struct SignupView: View {
             )
             .cornerRadius(30)
             .padding(.horizontal)
-            .onAppear() {
-                Auth.auth().addStateDidChangeListener { (auth, user) in
-                    if user != nil {
-                        showProfileView.toggle()
-                    }
-                }
-            }
             .rotation3DEffect(Angle(degrees: rotationAngle), axis: (x: CGFloat(0), y: CGFloat(1), z: CGFloat(0)))
             
         }
