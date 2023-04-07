@@ -216,6 +216,7 @@ struct ProfileView: View {
         }
         .sheet(isPresented: $showSettingsView, content: {
             SettingsView()
+                .environment(\.managedObjectContext, self.viewContext)
         })
         .onAppear() {
             currentAccount = savedAccounts.first
