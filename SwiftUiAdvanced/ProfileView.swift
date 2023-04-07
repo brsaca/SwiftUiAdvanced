@@ -17,6 +17,7 @@ struct ProfileView: View {
     @State private var showAlertView = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @State private var showSettingsView: Bool = false
     
     var body: some View {
         ZStack {
@@ -52,7 +53,9 @@ struct ProfileView: View {
                         
                         Spacer()
                         
-                        Button(action: {}, label: {
+                        Button(action: {
+                            showSettingsView.toggle()
+                        }, label: {
                             TextFieldIcon(iconName:"gearshape.fill", currentlyEditing: .constant(true))
                         })
                     }
@@ -190,6 +193,9 @@ struct ProfileView: View {
         .alert(isPresented: $showAlertView) {
             Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .cancel())
         }
+        .sheet(isPresented: $showSettingsView, content: {
+            SettingsView()
+        })
     }
     
     func signout() {
