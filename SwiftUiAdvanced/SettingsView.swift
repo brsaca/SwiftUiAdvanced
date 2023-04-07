@@ -23,6 +23,9 @@ struct SettingsView: View {
     @State private var site = ""
     @State private var bio = ""
     
+    @State private var showImagePicker = false
+    @State private var inputImage: UIImage?
+    
     private let generator = UISelectionFeedbackGenerator()
     
     var body: some View {
@@ -40,10 +43,10 @@ struct SettingsView: View {
                 
                 // Choose Photo
                 Button {
-                    
+                    self.showImagePicker = true
                 } label: {
                     HStack(spacing: 12) {
-                        TextFieldIcon(iconName: "person.crop.circle", currentlyEditing: .constant(false))
+                        TextFieldIcon(iconName: "person.crop.circle", currentlyEditing: .constant(false), passedImage: .constant(inputImage))
                         GradientText(text: "Choose Photo")
                         Spacer()
                     }

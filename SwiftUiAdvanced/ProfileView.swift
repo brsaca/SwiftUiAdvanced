@@ -56,7 +56,7 @@ struct ProfileView: View {
                         Button(action: {
                             showSettingsView.toggle()
                         }, label: {
-                            TextFieldIcon(iconName:"gearshape.fill", currentlyEditing: .constant(true))
+                            TextFieldIcon(iconName:"gearshape.fill", currentlyEditing: .constant(true), passedImage: .constant(nil))
                         })
                     }
                     
