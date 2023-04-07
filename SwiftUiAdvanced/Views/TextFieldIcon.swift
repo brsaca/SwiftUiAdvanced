@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TextFieldIcon: View {
-    var iconName: String = ""
+    var iconName: String
     @Binding var currentlyEditing: Bool
     @State private var colorAngle: Double = 0.0
     
