@@ -23,6 +23,7 @@ struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.userSince, ascending: true)], predicate: NSPredicate(format: "userID == %@", Auth.auth().currentUser!.uid), animation: .default) private var savedAccounts: FetchedResults<Account>
     @State private var currentAccount: Account?
+    @State private var updater: Bool = true
     
     var body: some View {
         ZStack {
@@ -77,7 +78,7 @@ struct ProfileView: View {
                         .font(.title2.bold())
                     
                     if currentAccount?.numerOfCertificates != 0 {
-                        Label("Awarded \(currentAccount?.numerOfCertificates ?? 0) certificates since \(currentAccount?.userSince ?? Date())", systemImage: "calendar")
+                        Label("Awarded \(currentAccount?.numerOfCertificates ?? 0) certificates since \(dateFormatter(currentAccount?.userSince ?? Date()))", systemImage: "calendar")
                             .foregroundColor(.white.opacity(0.7))
                             .font(.footnote)
                     }
@@ -116,14 +117,24 @@ struct ProfileView: View {
                                     print("ERROR: \(error)")
                                     print("USERCANCELLED: \(userCancelled)")
                                     
-                                    showLoader = false
-                                    
                                     if purchaserInfo?.entitlements["pro"]?.isActive == true {
+                                        currentAccount?.proMember = true
                                         iapButtonTitle = "You are a Pro Member"
-                                        alertTitle = "Purchase Successful"
-                                        alertMessage = "You are now a pro member"
-                                        showAlertView.toggle()
+                                        
+                                        do {
+                                            try viewContext.save()
+                                            showLoader = false
+                                            alertTitle = "Purchase Successful"
+                                            alertMessage = "You are now a pro member"
+                                            showAlertView.toggle()
+                                        } catch let error {
+                                            alertTitle = "Uh-oh!"
+                                            alertMessage = error.localizedDescription
+                                            showAlertView.toggle()
+                                            showLoader = false
+                                        }
                                     } else{
+                                        showLoader = false
                                         alertTitle = "Purchase Failed"
                                         alertMessage = "You are not a pro member"
                                         showAlertView.toggle()
@@ -147,12 +158,21 @@ struct ProfileView: View {
                     showLoader = true
                     Purchases.shared.restorePurchases { purchaserInfo, error in
                         if let info = purchaserInfo {
-                            showLoader = false
                             if info.allPurchasedProductIdentifiers.contains("lifetim_pro_plan") {
-                                iapButtonTitle = "You are a Pro Member"
-                                alertTitle = "Restore Success"
-                                alertMessage = "Your purchase has been restored and you are a pro member"
-                                showAlertView.toggle()
+                                currentAccount?.proMember = true
+                                do {
+                                    try viewContext.save()
+                                    iapButtonTitle = "You are a Pro Member"
+                                    alertTitle = "Restore Success"
+                                    alertMessage = "Your purchase has been restored and you are a pro member"
+                                    showAlertView.toggle()
+                                    showLoader = false
+                                } catch let error {
+                                    alertTitle = "Restore Unsuccessful"
+                                    alertMessage = error.localizedDescription
+                                    showAlertView.toggle()
+                                    showLoader = false
+                                }
                             } else {
                                 alertTitle = "No Purchases Found"
                                 alertMessage = "Your purchase has not been restored and you are not a pro member"
@@ -210,13 +230,17 @@ struct ProfileView: View {
                     .progressViewStyle(CircularProgressViewStyle())
             }
         }
-        .colorScheme(.dark)
+        .colorScheme(updater ? .dark : .dark)
         .alert(isPresented: $showAlertView) {
             Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .cancel())
         }
         .sheet(isPresented: $showSettingsView, content: {
             SettingsView()
                 .environment(\.managedObjectContext, self.viewContext)
+                .onDisappear() {
+                    currentAccount = savedAccounts.first!
+                    updater.toggle()
+                }
         })
         .onAppear() {
             currentAccount = savedAccounts.first
@@ -266,6 +290,12 @@ struct ProfileView: View {
             alertMessage = error.localizedDescription
             showAlertView.toggle()
         }
+    }
+    
+    func dateFormatter(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: date)
     }
 }
 
