@@ -5,7 +5,6 @@ A to practice swift UI Advanced based on the course [Advanced Development in Swi
 <p align="center">
 <a href="#">
 <img src="images/swiftui.gif" align="center"> 
-<br><br>
 </a>  
 <br><br>
      SwiftUIAdvanced
