@@ -27,4 +27,4 @@ A to practice swift UI Advanced based on the course [Advanced Development in Swi
 **Brenda Saavedra**
 
 - WebPage: [brendasaavedra.com](http://brendasaavedra.com)
-- Github: [@brenfondeadora](https://github.com/brenfondeadora/)
+- Github: [@brsaca](https://github.com/brsaca/)
